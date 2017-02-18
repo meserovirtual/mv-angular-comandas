@@ -1,0 +1,276 @@
+<div class="lista">
+    <input type="text" class="buscador" ng-model="$ctrl.filtroProd.nombre">
+    <table>
+        <thead>
+        <tr>
+            <th>{{'NAME'|xlat}}</th>
+            <th>{{'PHOTO'|xlat}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in $ctrl.productos | filter:$ctrl.filtroProd | limitTo:$ctrl.limit:$ctrl.start"
+            ng-click="$ctrl.producto=row;
+            $ctrl.foto_01.nombre = row.fotos[0].nombre;
+            $ctrl.foto_02.nombre = row.fotos[1].nombre;
+            $ctrl.foto_03.nombre = row.fotos[2].nombre;
+            $ctrl.foto_04.nombre = row.fotos[3].nombre;
+            $ctrl.detailsOpen = true;">
+            <td class="">{{row.nombre}}</td>
+            <td class=""><img ng-src="./images/{{row.fotos[0].nombre}}"
+                              alt="{{row.fotos[0].nombre}}"
+                              height="100" width="100" style="background-color: #dddddd;"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <div class="table-td">
+                    <button class="btn-paginacion-first"
+                            ng-click="$ctrl.first();">Primera
+                    </button>
+                    <button class="btn-paginacion-prev"
+                            ng-click="$ctrl.prev();">Ant.
+                    </button>
+                    <div class="paginacion-paginas">
+                        <span>{{'PAGE' | xlat}} {{$ctrl.pagina}} {{'OF' | xlat}} {{$ctrl.paginas}}</span>
+                    </div>
+                    <div class="paginacion-go-to">{{'GO_TO' | xlat}} <input type="number"
+                                                                            ng-model="$ctrl.pagina"
+                                                                            ng-keyup="$ctrl.goToPagina();">
+                    </div>
+
+                    <button class="btn-paginacion-next"
+                            ng-click="$ctrl.next();">Sig.
+                    </button>
+                    <button class="btn-paginacion-last"
+                            ng-click="$ctrl.last();">Última
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div class="botonera">
+        <button ng-click="$ctrl.detailsOpen = true; $ctrl.producto = {} ;">{{'NEW'|xlat}}</button>
+
+    </div>
+</div>
+
+<ac-blocker blocker-click="$ctrl.producto = {}; $ctrl.detailsOpen = false;" visibility="$ctrl.detailsOpen"></ac-blocker>
+
+
+<form class="form details" form-id="producto-details" ng-class="{'details-open':$ctrl.detailsOpen}">
+    <div class="detalle-container">
+
+        <div class="input">
+            <input type="text" id="nombre" name="nombre" ng-model="$ctrl.producto.nombre" ac-validator
+                   is-required="{{'ERROR_REQUIRED' | xlat:{campo:('NAME'|xlat)} }}" autocomplete="off">
+            <label for="nombre">{{'NAME'|xlat}}</label>
+
+        </div>
+
+        <div class="input">
+            <textarea id="descripcion" name="descripcion" ng-model="$ctrl.producto.descripcion"
+                      ac-validator is-required="{{'ERROR_REQUIRED' | xlat:{campo:('DESCRIPTION'|xlat)} }}"
+                      max-length="2000;{{'ERROR_MAX_LENGTH' | xlat:{campo:('DESCRIPTION'|xlat), length:('2000')} }}"></textarea>
+            <label for="descripcion">{{'DESCRIPTION'|xlat}}</label>
+
+        </div>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap;justify-content: space-around;">
+            <div class="input">
+                <input type="number" id="pto_repo" name="pto_repo" ng-model="$ctrl.producto.pto_repo"
+                       ng-maxlength="45"
+                ><label for="pto_repo">Punto Reposición</label>
+            </div>
+
+            <div class="input">
+                <select name="status" id="status" ng-model="$ctrl.producto.status">
+                    <option value="1" selected>Activo</option>
+                    <option value="0">Inactivo</option>
+                </select><label for="status">Estado</label>
+            </div>
+
+            <div class="input">
+                <select name="en_oferta" id="en_oferta" ng-model="$ctrl.producto.en_oferta">
+                    <option value="1" selected>Si</option>
+                    <option value="0">No</option>
+                </select><label for="en_oferta">En Oferta</label>
+            </div>
+
+            <div class="input">
+                <select name="en_slider" id="en_slider" ng-model="$ctrl.producto.en_slider">
+                    <option value="1" selected>Si</option>
+                    <option value="0">No</option>
+                </select><label for="en_slider">En Slider</label>
+            </div>
+        </div>
+
+        <div class="input">
+            <select name="categoria" id="categoria" ng-model="$ctrl.producto.categorias[0].categoria_id"
+                    ng-options="categoria.categoria_id as categoria.nombre  for categoria in $ctrl.categorias">
+            </select>
+            <label for="categoria">Categoria</label>
+        </div>
+
+        <div class="input">
+            <input type="text" id="sku" name="sku" ng-model="$ctrl.producto.sku" ng-maxlength="45"
+                   ng-keyup="($event.keyCode == 13) ? $ctrl.save():'';($event.keyCode == 13) ? $ctrl.detailsOpen = false:'';">
+            <label for="sku">SKU</label>
+        </div>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap;justify-content: space-around;">
+            <div class="input">
+                <select name="destacado" id="destacado" ng-model="$ctrl.producto.destacado">
+                    <option value="1">Si</option>
+                    <option value="0" selected>No</option>
+                </select><label for="destacado">Destacado</label>
+
+            </div>
+
+            <div class="input">
+                <select name="producto_tipo" id="producto_tipo" ng-model="$ctrl.producto.producto_tipo">
+                    <option value="0" selected>Producto</option>
+                    <option value="1">Insumo</option>
+                    <option value="2">Kit</option>
+                    <option value="3">Servicio</option>
+                    <option value="4">Granel</option>
+                </select><label for="producto_tipo">Tipo de producto</label>
+
+            </div>
+        </div>
+
+
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap;justify-content: space-around;">
+            <div class="input">
+                <input id="precio_minorista" type="number" ng-model="$ctrl.producto.precios[0].precio"
+                       ac-validator is-required="{{'ERROR_REQUIRED' | xlat:{campo:('PRICE'|xlat)} }}"/>
+
+                <label for="precio_minorista">Precio Minorista</label>
+
+            </div>
+            <div class="input">
+                <input id="precio_mayorista" type="number" ng-model="$ctrl.producto.precios[1].precio"
+                       ac-validator is-required="{{'ERROR_REQUIRED' | xlat:{campo:('PRICE'|xlat)} }}"/>
+
+                <label for="precio_mayorista">Precio Mayorista</label>
+
+            </div>
+            <div class="input">
+                <input id="precio_oferta" type="number" ng-model="$ctrl.producto.precios[2].precio"
+                       ac-validator is-required="{{'ERROR_REQUIRED' | xlat:{campo:('PRICE'|xlat)} }}"/>
+
+                <label for="precio_oferta">Precio Oferta</label>
+            </div>
+            <div class="input">
+                <input id="iva" type="number" ng-model="$ctrl.producto.iva" step="0.1"/>
+
+                <label for="iva">IVA</label>
+            </div>
+        </div>
+
+
+        <fieldset class="input" style="margin-bottom: 10px;">
+            <div class="input" style="max-height: 150px;overflow-y: auto; position: relative;">
+                <div style="display: flex; flex-direction: column;">
+                    <label>Proveedores</label>
+                    <input style="" placeholder="Buscar proveedor..." type="text" ng-model="$ctrl.filter">
+                </div>
+            </div>
+
+            <div ng-repeat="proveedor in $ctrl.proveedores | filter:$ctrl.filter"
+                 style="display:flex; align-items: flex-start; flex-direction: column;">
+                <label class="label--checkbox">
+                    <input type="checkbox"
+                           id="{{proveedor.usuario_id}}"
+                           class="checkbox"
+                           ng-model="$ctrl.listProveedores[proveedor.usuario_id]"
+                           name="proveedor">
+                    {{proveedor.nombre}}
+                </label>
+            </div>
+
+        </fieldset>
+        <fieldset class="input" ng-disabled="$ctrl.producto.producto_tipo != 2"
+                  style="max-height: 500px; min-height: 400px;">
+            <div><h3>Productos a incluir en el Kit</h3>
+            </div>
+            <label for="nombre">Nombre</label>
+            <div>
+                <ac-autocomplete
+                        style="width: 100%"
+                        fields-to-show="'nombre'"
+                        selected-to="$ctrl.producto_para_kit"
+                        search-fields="'nombre,sku'"
+                        search-function="$ctrl.searchProductoKit(callback)"></ac-autocomplete>
+                <button ng-click="$ctrl.agregarKit();">{{'ADD'|xlat}}</button>
+            </div>
+
+            <div style="overflow: auto; max-height: 200px">
+                <label for="nombre">Agregados</label>
+                <table st-table="$ctrl.productos_en_kit" class="table table-striped" style="width: 100%">
+                    <tbody>
+
+                    <tr ng-repeat="row in $ctrl.producto.kits">
+
+                        <td>
+                            {{row.nombre}}
+                        </td>
+                        <td>
+                            <button ng-click="$ctrl.quitarKit(row);">{{'REMOVE'|xlat}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        <div class="foto-container">
+            <div class="foto">
+                <span>Foto 1</span>
+
+                <div id="slider-01-foto" class="input-foto">
+                    <img ng-src="{{'images/'+$ctrl.foto_01.nombre}}" alt="" height="80" width="80">
+                    <input type="file" name="images" id="images"
+                           ac-upload-files="$ctrl.updateFotoProyecto(selectedFileList,1,'')"/>
+                </div>
+            </div>
+
+            <div class="foto">
+                <span>Foto 2</span>
+
+                <div id="slider-02-foto" class="input-foto">
+                    <img ng-src="{{'images/'+$ctrl.foto_02.nombre}}" alt="" height="80" width="80">
+                    <input type="file" name="images" id="images"
+                           ac-upload-files="$ctrl.updateFotoProyecto(selectedFileList,2,'')"/>
+                </div>
+            </div>
+
+            <div class="foto">
+                <span>Foto 3</span>
+
+                <div id="slider-03-foto" class="input-foto">
+                    <img ng-src="{{'images/'+$ctrl.foto_03.nombre}}" alt="" height="80" width="80">
+                    <input type="file" name="images" id="images"
+                           ac-upload-files="$ctrl.updateFotoProyecto(selectedFileList,3,'')"/>
+                </div>
+            </div>
+
+            <div class="foto">
+                <span>Foto 4</span>
+
+                <div id="slider-04-foto" class="input-foto">
+                    <img ng-src="{{'images/'+$ctrl.foto_04.nombre}}" alt="" height="80" width="80">
+                    <input type="file" name="images" id="images"
+                           ac-upload-files="$ctrl.updateFotoProyecto(selectedFileList,4,'')"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="botonera">
+        <button ng-click="$ctrl.save(); $ctrl.detailsOpen = false;" ac-validator>{{'SAVE'|xlat}}</button>
+        <button ng-click="$ctrl.remove()">{{'DELETE'|xlat}}</button>
+        <button ng-click="$ctrl.producto = {}; $ctrl.detailsOpen = false;">{{'CANCEL'|xlat}}</button>
+
+    </div>
+</form>
+
