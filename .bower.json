@@ -1,14 +1,14 @@
 {
-  "name": "ac-angular-productos",
-  "homepage": "https://github.com/arielcessario/ac-angular-productos",
+  "name": "mv-angular-comandas",
+  "homepage": "https://github.com/meserovirtual/mv-angular-comandas",
   "_release": "9ac0d60642",
   "_resolution": {
     "type": "branch",
     "branch": "master",
     "commit": "9ac0d606429a89af512d70f6aad713bd0e0342dd"
   },
-  "_source": "https://github.com/arielcessario/ac-angular-productos.git",
+  "_source": "https://github.com/meserovirtual/mv-angular-comandas.git",
   "_target": "*",
-  "_originalSource": "ac-angular-productos",
+  "_originalSource": "mv-angular-comandas",
   "_direct": true
 }
