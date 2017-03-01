@@ -1,0 +1,217 @@
+2017-02-26 18:35:41: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(373): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle(Array, Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(566): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:38:43: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(373): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle(Array, Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(566): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:39:13: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(373): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle(Array, Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(566): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:39:56: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(373): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle(Array, Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(566): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:44:53: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(375): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle('{"detalle":{"pr...', Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(568): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:46:38: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(376): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle('{"detalle":{"pr...', Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(569): Comandas::init(Array)
+#7 {main}
+2017-02-26 18:54:07: Exception: Problem preparing query (INSERT  INTO comandas_detalles (`producto_id`, `status`, `comentarios`, `comanda_id`, `cantidad`, `precio`, `session_id`)  VALUES (?, ?, ?, ?, ?, ?, ?)) Unknown column 'session_id' in 'field list' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1095): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(1037): MysqliDb->_buildQuery(NULL, Array)
+#2 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(628): MysqliDb->_buildInsert('comandas_detall...', Array, 'INSERT')
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(376): MysqliDb->insert('comandas_detall...', Array)
+#4 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(325): Comandas::createDetalle(Object(stdClass), Object(MysqliDb))
+#5 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::createComanda(Array)
+#6 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(572): Comandas::init(Array)
+#7 {main}
+2017-02-28 12:35:45: Exception: Problem preparing query (SELECT 
+    c.comanda_id,
+    c.status,
+    c.total,
+    cd.comanda_detalle_id,
+    cd.producto_id,
+    p.nombre,
+    cd.precio,
+    cd.status,
+    cd.comentarios,
+    cd.cantidad,
+    ce.comanda_extra_id,
+    ce.producto_id extra_id,
+    pp.nombre extra,
+    ce.precio extra_precio,
+    ce.cantidad extra_cantidad
+FROM
+    comandas c
+        INNER JOIN
+    comandas_detalles cd ON c.comanda_id = cd.comanda_id
+        INNER JOIN
+    comandas_extras ce ON cd.comanda_detalle_id = ce.comanda_detalle_id
+        INNER JOIN
+    productos p ON cd.producto_id = p.producto_id
+        INNER JOIN
+    productos pp ON ce.producto_id = pp.producto_id
+WHERE c.mesa_id = 10 and cd.session_id =-SkgN0--RYwGSQsKwJzS AND c . status <> 5
+GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
+) Unknown column 'SkgN0' in 'where clause' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(382): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(75): MysqliDb->rawQuery('SELECT \n    c.c...')
+#2 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::getComanda(Array)
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(584): Comandas::init(Array)
+#4 {main}
+2017-02-28 12:36:38: Exception: Problem preparing query (SELECT 
+    c.comanda_id,
+    c.status,
+    c.total,
+    cd.comanda_detalle_id,
+    cd.producto_id,
+    p.nombre,
+    cd.precio,
+    cd.status,
+    cd.comentarios,
+    cd.cantidad,
+    ce.comanda_extra_id,
+    ce.producto_id extra_id,
+    pp.nombre extra,
+    ce.precio extra_precio,
+    ce.cantidad extra_cantidad
+FROM
+    comandas c
+        INNER JOIN
+    comandas_detalles cd ON c.comanda_id = cd.comanda_id
+        INNER JOIN
+    comandas_extras ce ON cd.comanda_detalle_id = ce.comanda_detalle_id
+        INNER JOIN
+    productos p ON cd.producto_id = p.producto_id
+        INNER JOIN
+    productos pp ON ce.producto_id = pp.producto_id
+ WHERE c.mesa_id = 10 and cd.session_id =-SkgN0--RYwGSQsKwJzS AND c . status <> 5
+GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
+) Unknown column 'SkgN0' in 'where clause' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(382): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(75): MysqliDb->rawQuery('SELECT \n    c.c...')
+#2 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::getComanda(Array)
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(584): Comandas::init(Array)
+#4 {main}
+2017-02-28 12:36:44: Exception: Problem preparing query (SELECT 
+    c.comanda_id,
+    c.status,
+    c.total,
+    cd.comanda_detalle_id,
+    cd.producto_id,
+    p.nombre,
+    cd.precio,
+    cd.status,
+    cd.comentarios,
+    cd.cantidad,
+    ce.comanda_extra_id,
+    ce.producto_id extra_id,
+    pp.nombre extra,
+    ce.precio extra_precio,
+    ce.cantidad extra_cantidad
+FROM
+    comandas c
+        INNER JOIN
+    comandas_detalles cd ON c.comanda_id = cd.comanda_id
+        INNER JOIN
+    comandas_extras ce ON cd.comanda_detalle_id = ce.comanda_detalle_id
+        INNER JOIN
+    productos p ON cd.producto_id = p.producto_id
+        INNER JOIN
+    productos pp ON ce.producto_id = pp.producto_id
+ WHERE c.mesa_id = 10 and cd.session_id =-SkgN0--RYwGSQsKwJzS AND c . status <> 5
+GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
+) Unknown column 'SkgN0' in 'where clause' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(382): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(75): MysqliDb->rawQuery('SELECT \n    c.c...')
+#2 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::getComanda(Array)
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(584): Comandas::init(Array)
+#4 {main}
+2017-02-28 12:36:47: Exception: Problem preparing query (SELECT 
+    c.comanda_id,
+    c.status,
+    c.total,
+    cd.comanda_detalle_id,
+    cd.producto_id,
+    p.nombre,
+    cd.precio,
+    cd.status,
+    cd.comentarios,
+    cd.cantidad,
+    ce.comanda_extra_id,
+    ce.producto_id extra_id,
+    pp.nombre extra,
+    ce.precio extra_precio,
+    ce.cantidad extra_cantidad
+FROM
+    comandas c
+        INNER JOIN
+    comandas_detalles cd ON c.comanda_id = cd.comanda_id
+        INNER JOIN
+    comandas_extras ce ON cd.comanda_detalle_id = ce.comanda_detalle_id
+        INNER JOIN
+    productos p ON cd.producto_id = p.producto_id
+        INNER JOIN
+    productos pp ON ce.producto_id = pp.producto_id
+ WHERE c.mesa_id = 10 and cd.session_id =-SkgN0--RYwGSQsKwJzS AND c . status <> 5
+GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
+) Unknown column 'SkgN0' in 'where clause' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(382): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(75): MysqliDb->rawQuery('SELECT \n    c.c...')
+#2 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::getComanda(Array)
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(584): Comandas::init(Array)
+#4 {main}
+2017-03-01 14:53:56: Exception: Problem preparing query (DELETE FROM comandas_detalles WHERE comanda_detalle_idaa = 15) Unknown column 'comanda_detalle_idaa' in 'where clause' in C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php:1482
+Stack trace:
+#0 C:\xampp\htdocs\mesero-cliente\app\includes\MyDBi.php(382): MysqliDb->_prepareQuery()
+#1 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(477): MysqliDb->rawQuery('DELETE FROM com...')
+#2 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(23): Comandas::quitar(Array)
+#3 C:\xampp\htdocs\mesero-cliente\app\bower_components\mv-angular-comandas\includes\mv-comandas.php(551): Comandas::init(Array)
+#4 {main}

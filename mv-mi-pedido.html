@@ -1,0 +1,31 @@
+<div class="lista">
+    <span class="mi-pedido-titulo">Mi Pedido</span>
+    <div class="buscador-container">
+        <div class="input">
+            <input class="mi-pedido-search" class="buscador" type="text" ng-model="$ctrl.filtroProd.nombre"
+                   placeholder="Buscar">
+        </div>
+    </div>
+
+
+    <div class="productos-list">
+        <h1>Nro. de comanda: {{$ctrl.comanda[0].comanda_id}}</h1>
+        <div class="mi-pedido-pedido"
+             ng-repeat="item in $ctrl.comanda[0].detalles">
+            <div class="mi-pedido-top" ng-class="{'mi-pedido-no-pedido': item.status == 1}">
+                <span class="mi-pedido-top-left">{{item.nombre}}</span>
+                <span class="mi-pedido-top-right">{{item.precio | currency}}</span>
+            </div>
+            <div class="mi-pedido-extra" ng-repeat="extra in item.extras">
+                <span class="mi-pedido-extra-left">{{extra.extra}}</span>
+                <span class="mi-pedido-extra-right">{{extra.precio | currency}}</span>
+            </div>
+            <img ng-if="item.status == 1" class="mi-pedido-eliminar" ng-click="$ctrl.quitar(item.comanda_detalle_id)" src="images/eliminar.svg"/>
+        </div>
+    </div>
+    <div class="botonera">
+        <button ng-click="$ctrl.detailsOpen = true; $ctrl.producto = {} ;">{{'NEW'|xlat}}</button>
+        <button ng-click="$ctrl.detailsOpen = true; $ctrl.producto = {} ;">Ordenar</button>
+    </div>
+</div>
+

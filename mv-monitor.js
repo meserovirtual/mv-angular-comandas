@@ -14,12 +14,12 @@
         }
     }
 
-    AcProductosController.$inject = ["ProductVars", 'ProductService', "AcUtils", "CategoryService", "UserService", "$scope", "UploadVars", "UploadService"];
+    AcProductosController.$inject = ["ProductVars", 'ProductService', "MvUtils", "CategoryService", "UserService", "$scope", "UploadVars", "UploadService"];
     /**
      * @param AcProductos
      * @constructor
      */
-    function AcProductosController(ProductVars, ProductService, AcUtils, CategoryService, UserService, $scope, UploadVars, UploadService) {
+    function AcProductosController(ProductVars, ProductService, MvUtils, CategoryService, UserService, $scope, UploadVars, UploadService) {
         var vm = this;
 
         vm.productos = [];
@@ -162,20 +162,20 @@
         }
 
         vm.next = function () {
-            paginar(AcUtils.next(ProductVars));
+            paginar(MvUtils.next(ProductVars));
         };
         vm.prev = function () {
-            paginar(AcUtils.prev(ProductVars));
+            paginar(MvUtils.prev(ProductVars));
         };
         vm.first = function () {
-            paginar(AcUtils.first(ProductVars));
+            paginar(MvUtils.first(ProductVars));
         };
         vm.last = function () {
-            paginar(AcUtils.last(ProductVars));
+            paginar(MvUtils.last(ProductVars));
         };
 
         vm.goToPagina = function () {
-            paginar(AcUtils.goToPagina(vm.pagina, ProductVars));
+            paginar(MvUtils.goToPagina(vm.pagina, ProductVars));
         }
 
     }
