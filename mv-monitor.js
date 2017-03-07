@@ -25,7 +25,7 @@
         vm.comandas = [];
         vm.comanda = {};
 
-
+        vm.showComanda = showComanda;
 
         ComandasService.get().then(function (data) {
             console.log(data);
@@ -34,7 +34,21 @@
             console.log(data);
         });
 
-
+        function showComanda(origen_id) {
+            var origen = '';
+            switch (origen_id) {
+                case 1:
+                    origen = 'Mostrador';
+                    break;
+                case 2:
+                    origen = 'Delivery';
+                    break;
+                default:
+                    origen = 'Mesa';
+                    break;
+            }
+            return origen;
+        }
 
 
         // Implementación de la paginación

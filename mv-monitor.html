@@ -2,7 +2,7 @@
 
     <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
         <div class="container-comanda-header">
-            <div>{{comanda.origen_id}}</div>
+            <div>{{$ctrl.showComanda(comanda.origen_id)}}</div>
             <div>{{comanda.status}}</div>
             <div>{{comanda.fecha}}</div>
         </div>
