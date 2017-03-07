@@ -2,25 +2,32 @@
 
     <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
         <div class="container-comanda-header">
-            <div>{{$ctrl.showComanda(comanda.origen_id)}}</div>
-            <div>{{comanda.status}}</div>
+            <div class="destino-titulo-comanda">{{$ctrl.showComanda(comanda.origen_id)}}</div>
+            <div>#{{comanda.status}}</div>
             <div>{{comanda.fecha}}</div>
         </div>
+        <div class="comanda-borde-status">
         <div class="container-comanda-body">
             <div class="comanda-body-header">
                 <div>Producto</div>
                 <div>Cant</div>
-                <div>Acci�n</div>
+                <div>Acción</div>
             </div>
             <div ng-repeat="detalle in comanda.detalles" class="comanda-body-detalle">
-                <div>{{detalle.nombre}}</div>
-                <div>{{detalle.cantidad}}</div>
-                <button type="button" class="boton-cancelar btn-small" ng-click="$ctrl.cancel();" title="Cancelar">
+                <div style="justify-content: flex-start; width: 192px">{{detalle.nombre}}</div>
+                <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
+                <div class="separador-acciones-comanda">
+                <button type="button" class="boton-confirmar-comanda" ng-click="$ctrl.cancel();" title="Confirmar Elaboración">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
+                    <button type="button" class="boton-cancelar-comanda" ng-click="$ctrl.cancel();" title="Cancelar">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>
+           </div>
         </div>
         <div class="container-comanda-footer">Observaciones</div>
+    </div>
     </div>
 </div>
 
