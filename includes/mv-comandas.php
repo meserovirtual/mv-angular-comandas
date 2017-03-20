@@ -44,15 +44,17 @@ class Comandas extends Main
         $decoded = json_decode($params["params"]);
         $mesa_id = getDataFromToken('mesa_id');
         $session_id = getDataFromToken('session_id');
-        $results = $db->rawQuery('SELECT 
+        $results = $db->rawQuery('SELECT
     c.comanda_id,
     c.status,
     c.total,
+    c.origen_id,
+    c.fecha,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
     cd.precio,
-    cd.status,
+    cd.status AS platoStatus,
     cd.comentarios,
     cd.cantidad,
     cd.session_id,
@@ -84,6 +86,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                     'comanda_id' => $row["comanda_id"],
                     'status' => $row["status"],
                     'total' => $row["total"],
+                    'origen_id' => $row["origen_id"],
+                    'fecha' => $row["fecha"],
                     'detalles' => array()
                 );
             }
@@ -102,7 +106,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'producto_id' => $row['producto_id'],
                         'nombre' => $row['nombre'],
                         'precio' => $row['precio'],
-                        'status' => $row['status'],
+                        'platoStatus' => $row['platoStatus'],
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
                         'cantidad' => $row['cantidad']
@@ -118,7 +122,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'producto_id' => $row['producto_id'],
                         'nombre' => $row['nombre'],
                         'precio' => $row['precio'],
-                        'status' => $row['status'],
+                        'platoStatus' => $row['platoStatus'],
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
                         'cantidad' => $row['cantidad']
@@ -245,10 +249,24 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
             $db->startTransaction();
             $decoded = self::checkDetalles(json_decode($params["detalle"]));
         } else {
-            $decoded = self::checkDetalles($params);
+            //$decoded = self::checkDetalles($params);
+            $decoded = self::checkDetalles($params->detalles);
         }
 
+        foreach($decoded as $detalle){
+            $data = array(
+                'producto_id' => $detalle->producto_id,
+                'status' => 1,
+                'comentarios' => $detalle->comentarios,
+                'comanda_id' => $params->comanda_id,
+                'cantidad' => $detalle->cantidad,
+                'precio' => $detalle->precio,
+                'session_id' => getDataFromToken('session_id')
+            );
 
+            $results = $db->insert('comandas_detalles', $data);
+        }
+        /*
         $data = array(
             'producto_id' => $decoded->producto_id,
             'status' => 1,
@@ -260,7 +278,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         );
 
         $results = $db->insert('comandas_detalles', $data);
-
+        */
 
         if ($innerCall) {
             foreach ($decoded->kits as $extra) {
@@ -322,11 +340,21 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
             $db->startTransaction();
             $decoded = self::checkExtras(json_decode($params["extra"]));
         } else {
-
-            $decoded = self::checkExtras($params);
+            //$decoded = self::checkExtras($params);
+            $decoded = self::checkExtras($params->kits);
         }
 
+        foreach($decoded as $extra){
+            $data = array(
+                'producto_id' => $extra->producto_id,
+                'cantidad' => $extra->cantidad,
+                'comanda_detalle_id' => $extra->comanda_detalle_id,
+                'precio' => $extra->precio
+            );
 
+            $results = $db->insert('comandas_extras', $data);
+        }
+        /*
         $data = array(
             'producto_id' => $decoded->producto_id,
             'cantidad' => $decoded->cantidad,
@@ -335,7 +363,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         );
 
         $results = $db->insert('comandas_extras', $data);
-
+        */
         if ($innerCall) {
             return ($results > -1) ? true : false;
         } else {

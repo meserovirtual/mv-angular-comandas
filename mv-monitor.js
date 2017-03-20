@@ -25,7 +25,8 @@
         vm.comandas = [];
         vm.comanda = {};
 
-        vm.showComanda = showComanda;
+        vm.getOrigen = getOrigen;
+        vm.getNroEnvio = getNroEnvio;
 
         ComandasService.get().then(function (data) {
             console.log(data);
@@ -34,7 +35,7 @@
             console.log(data);
         });
 
-        function showComanda(origen_id) {
+        function getOrigen(origen_id) {
             var origen = '';
             switch (origen_id) {
                 case 1:
@@ -48,6 +49,15 @@
                     break;
             }
             return origen;
+        }
+
+        function getNroEnvio(origen_id) {
+            var nroEnvio = '';
+            if(origen_id == 2) {
+                //TODO: en base al origen_id debería poder saber cual es el envio asociado a la comanda
+                //Falta esa tabla relacional
+            }
+            return nroEnvio;
         }
 
 
