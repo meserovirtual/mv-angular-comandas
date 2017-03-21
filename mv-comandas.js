@@ -172,8 +172,8 @@
 
             return $http.get(urlGet, {cache: true})
                 .then(function (response) {
-
-                        for (var i = 0; i < response.data.length; i++) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        if(response.data[i].precios != undefined) {
                             response.data[i].precios[0].precio = parseFloat(response.data[i].precios[0].precio);
                             response.data[i].precios[1].precio = parseFloat(response.data[i].precios[1].precio);
                             response.data[i].precios[2].precio = parseFloat(response.data[i].precios[2].precio);
@@ -189,16 +189,15 @@
                             response.data[i].en_slider = '' + response.data[i].en_slider;
                             response.data[i].destacado = '' + response.data[i].destacado;
                             response.data[i].comanda_tipo = '' + response.data[i].comanda_tipo;
-
                         }
-
-                        $httpDefaultCache.put(urlGet, response.data);
-                        ComandasVars.clearCache = false;
-                        ComandasVars.paginas = (response.data.length % ComandasVars.paginacion == 0) ? parseInt(response.data.length / ComandasVars.paginacion) : parseInt(response.data.length / ComandasVars.paginacion) + 1;
-                        MvUtilsGlobals.stopWaiting();
-                        return response.data;
                     }
-                )
+
+                    $httpDefaultCache.put(urlGet, response.data);
+                    ComandasVars.clearCache = false;
+                    ComandasVars.paginas = (response.data.length % ComandasVars.paginacion == 0) ? parseInt(response.data.length / ComandasVars.paginacion) : parseInt(response.data.length / ComandasVars.paginacion) + 1;
+                    MvUtilsGlobals.stopWaiting();
+                    return response.data;
+                })
                 .catch(function (response) {
                     ComandasVars.clearCache = true;
                     MvUtilsGlobals.stopWaiting();
