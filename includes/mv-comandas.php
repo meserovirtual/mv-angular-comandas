@@ -189,7 +189,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
             SELECT comanda_id
             FROM comandas
             WHERE 	HOUR(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) = 0 AND
-		                MINUTE(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) <= 30
+		                MINUTE(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) <= 30 AND
+		                status IN (1,2);
         ');
 
         $comandaIn = '';
@@ -201,8 +202,6 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         } else {
             $comandaIn = '0';
         }
-
-
 
 
         $results = $db->rawQuery('SELECT

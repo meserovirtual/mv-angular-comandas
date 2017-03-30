@@ -12,7 +12,7 @@ El producto_id = 5, en la tabla productos_kits es producto_kit_id = 5
 
 
 Notas:
-En el raíz del sitio se debe crear una carpeta llamada includes y dentro de la misma crear un archivo llamado config.php
+En el raï¿½z del sitio se debe crear una carpeta llamada includes y dentro de la misma crear un archivo llamado config.php
 
 Dentro del mismo incluir las siguientes lineas
 
@@ -22,3 +22,12 @@ $secret = 'uiglp';
 $serverName = 'serverName';
 // false local / true production
 $jwt_enabled = false;
+
+
+//*******************************************
+Comanda status
+1-Creada
+2-Pedida
+3-Servida
+4-Cancelada
+5-Cerrada
