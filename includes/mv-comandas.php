@@ -178,6 +178,158 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         echo json_encode(array_values($final));
     }
 
+    function getComandaNoEntregadas($params) {
+        $db = self::$instance->db;
+        $decoded = json_decode($params["params"]);
+        //$mesa_id = getDataFromToken('mesa_id');
+        //$session_id = getDataFromToken('session_id');
+
+
+        $comandas = $db->rawQuery('
+            SELECT comanda_id
+            FROM comandas
+            WHERE 	HOUR(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) = 0 AND
+		                MINUTE(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) <= 30
+        ');
+
+        $comandaIn = '';
+        if(count($comandas) > 0) {
+            foreach ($comandas as $row) {
+                $comandaIn = $comandaIn . $row["comanda_id"] . ',';
+            }
+            $comandaIn = substr($comandaIn, 0, -1);
+        } else {
+            $comandaIn = '0';
+        }
+
+
+
+
+        $results = $db->rawQuery('SELECT
+    c.comanda_id,
+    c.status,
+    c.total,
+    c.origen_id,
+    c.fecha,
+    cd.comanda_detalle_id,
+    cd.producto_id,
+    p.nombre,
+    cd.precio,
+    cd.status AS platoStatus,
+    cd.comentarios,
+    cd.cantidad,
+    cd.session_id,
+    ce.comanda_extra_id,
+    ce.producto_id extra_id,
+    pp.nombre extra,
+    ce.precio extra_precio,
+    ce.cantidad extra_cantidad
+FROM
+    comandas c
+        INNER JOIN
+    comandas_detalles cd ON c.comanda_id = cd.comanda_id
+        LEFT JOIN
+    comandas_extras ce ON cd.comanda_detalle_id = ce.comanda_detalle_id
+        LEFT JOIN
+    productos p ON cd.producto_id = p.producto_id
+        LEFT JOIN
+    productos pp ON ce.producto_id = pp.producto_id
+ WHERE c.comanda_id NOT IN ('. $comandaIn .')
+GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
+');
+
+
+        $final = array();
+        foreach ($results as $row) {
+
+            if (!isset($final[$row["comanda_id"]])) {
+                $final[$row["comanda_id"]] = array(
+                    'comanda_id' => $row["comanda_id"],
+                    'status' => $row["status"],
+                    'total' => $row["total"],
+                    'origen_id' => $row["origen_id"],
+                    'fecha' => $row["fecha"],
+                    'detalles' => array()
+                );
+            }
+            $have_det = false;
+            if ($row["comanda_detalle_id"] !== null) {
+
+                if (sizeof($final[$row['comanda_id']]['detalles']) > 0) {
+                    foreach ($final[$row['comanda_id']]['detalles'] as $cat) {
+                        if ($cat['comanda_detalle_id'] == $row["comanda_detalle_id"]) {
+                            $have_det = true;
+                        }
+                    }
+                } else {
+                    $final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']] = array(
+                        'comanda_detalle_id' => $row['comanda_detalle_id'],
+                        'producto_id' => $row['producto_id'],
+                        'nombre' => $row['nombre'],
+                        'precio' => $row['precio'],
+                        'platoStatus' => $row['platoStatus'],
+                        'session_id' => $row['session_id'],
+                        'comentarios' => $row['comentarios'],
+                        'cantidad' => $row['cantidad']
+                    );
+
+                    $have_det = true;
+                }
+
+                if (!$have_det) {
+                    array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']], array());
+                    $final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']] = array(
+                        'comanda_detalle_id' => $row['comanda_detalle_id'],
+                        'producto_id' => $row['producto_id'],
+                        'nombre' => $row['nombre'],
+                        'precio' => $row['precio'],
+                        'platoStatus' => $row['platoStatus'],
+                        'session_id' => $row['session_id'],
+                        'comentarios' => $row['comentarios'],
+                        'cantidad' => $row['cantidad']
+                    );
+
+                }
+            }
+
+
+            $have_ext = false;
+            if ($row["comanda_extra_id"] !== null) {
+
+                if (sizeof($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']]['extras']) > 0) {
+                    foreach ($final[$row['comanda_id']]['precios'][$row['comanda_detalle_id']]['extras'] as $cat) {
+                        if ($cat['comanda_extra_id'] == $row["comanda_extra_id"]) {
+                            $have_ext = true;
+                        }
+                    }
+                } else {
+                    $final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']]['extras'][] = array(
+                        'comanda_extra_id' => $row['comanda_extra_id'],
+                        'extra_id' => $row['extra_id'],
+                        'extra' => $row['extra'],
+                        'precio' => $row['precio'],
+                        'cantidad' => $row['cantidad']
+                    );
+
+                    $have_ext = true;
+                }
+
+                if (!$have_ext) {
+                    array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']]['extras'], array(
+                        'comanda_extra_id' => $row['comanda_extra_id'],
+                        'extra_id' => $row['extra_id'],
+                        'extra' => $row['extra'],
+                        'precio' => $row['precio'],
+                        'cantidad' => $row['cantidad']
+                    ));
+                }
+            }
+
+
+        }
+        echo json_encode(array_values($final));
+    }
+
     /**
      * @description Crea un comanda, sus fotos, precios y le asigna las categorias
      * @param $product
