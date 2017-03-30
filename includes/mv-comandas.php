@@ -233,7 +233,7 @@ FROM
     productos p ON cd.producto_id = p.producto_id
         LEFT JOIN
     productos pp ON ce.producto_id = pp.producto_id
- WHERE c.comanda_id NOT IN ('. $comandaIn .')
+ WHERE c.comanda_id NOT IN ('. $comandaIn .') AND c.status IN (1,2)
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
