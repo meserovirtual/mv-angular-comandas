@@ -27,13 +27,20 @@
 
         vm.getOrigen = getOrigen;
         vm.getNroEnvio = getNroEnvio;
+        vm.cancelarPlato = cancelarPlato;
+        vm.confirmarElaboracion = confirmarElaboracion;
 
-        ComandasService.get().then(function (data) {
-            console.log(data);
-            vm.comandas = data;
-        }).catch(function(data){
-            console.log(data);
-        });
+
+        loadComandas();
+
+        function loadComandas() {
+            ComandasService.get().then(function (data) {
+                console.log(data);
+                vm.comandas = data;
+            }).catch(function(data){
+                console.log(data);
+            });
+        }
 
         function getOrigen(origen_id) {
             var origen = '';
@@ -58,6 +65,29 @@
                 //Falta esa tabla relacional
             }
             return nroEnvio;
+        }
+
+
+        function cancelarPlato(comanda_detalle_id) {
+            //console.log(comanda_detalle_id);
+
+            ComandasService.quitar(comanda_detalle_id).then(function(data){
+                //console.log(data);
+                loadComandas();
+            }).catch(function(data){
+                console.log(data);
+            });
+        }
+
+        function confirmarElaboracion(detalle) {
+            detalle.status = 2;
+            //console.log(detalle);
+            ComandasService.confirmarElaboracion(detalle).then(function(data){
+                console.log(data);
+                loadComandas();
+            }).catch(function(data){
+                console.log(data);
+            });
         }
 
 

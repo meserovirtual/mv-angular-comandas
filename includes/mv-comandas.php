@@ -588,6 +588,35 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         }
     }
 
+
+
+    function updateStatusPlato($params)
+    {
+        $db = self::$instance->db;
+        $db->startTransaction();
+        $decoded = self::checkDetalles(json_decode($params["detalle"]));
+
+        $db->where('comanda_detalle_id', $decoded->comanda_detalle_id);
+
+        $data = array(
+          'status' => $decoded->status
+        );
+
+        $result = $db->update('comandas_detalles', $data);
+
+        if ($result) {
+            $db->commit();
+            header('HTTP / 1.0 200 Ok');
+            echo json_encode($result);
+        } else {
+            $db->rollback();
+            header('HTTP / 1.0 500 Internal Server Error');
+            echo $db->getLastError();
+        }
+    }
+
+
+
     /**
      * @description Modifica un comanda, sus fotos, precios y le asigna las categorias
      * @param $product
@@ -678,7 +707,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
      */
     function checkComanda($comanda)
     {
-
+        //$comanda->comanda_id = (!array_key_exists("comanda_id", $comanda)) ? -1 : $comanda->comanda_id;
         $comanda->usuario_id = (!array_key_exists("usuario_id", $comanda)) ? -2 : $comanda->usuario_id;
         $comanda->status = (!array_key_exists("status", $comanda)) ? 0 : $comanda->status;
         $comanda->mesa_id = (!array_key_exists("mesa_id", $comanda)) ? -2 : $comanda->mesa_id;

@@ -18,10 +18,12 @@
                     <div style="justify-content: flex-start; width: 192px">{{detalle.nombre}}</div>
                     <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
                     <div class="separador-acciones-comanda">
-                        <button type="button" class="boton-confirmar-comanda" ng-click="$ctrl.cancel();" title="Confirmar Elaboración">
+                        <button type="button" class="boton-confirmar-comanda"
+                                ng-click="$ctrl.confirmarElaboracion(detalle);" title="Confirmar Elaboración">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="boton-cancelar-comanda" ng-click="$ctrl.cancel();" title="Cancelar">
+                        <button type="button" class="boton-cancelar-comanda"
+                                ng-click="$ctrl.cancelarPlato(detalle.comanda_detalle_id);" title="Cancelar">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     </div>
