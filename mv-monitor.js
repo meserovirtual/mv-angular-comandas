@@ -14,16 +14,17 @@
         }
     }
 
-    MvMonitorController.$inject = ["ComandasService", "ComandasVars", "MvUtils"];
+    MvMonitorController.$inject = ["ComandasService", "ComandasVars", "MvUtils", "MesasService", "EnviosService"];
     /**
      * @param mvMonitor
      * @constructor
      */
-    function MvMonitorController(ComandasService, ComandasVars, MvUtils) {
+    function MvMonitorController(ComandasService, ComandasVars, MvUtils, MesasService, EnviosService) {
         var vm = this;
 
         vm.comandas = [];
         vm.comanda = {};
+        vm.mesas = [];
 
         vm.getOrigen = getOrigen;
         vm.getNroEnvio = getNroEnvio;
@@ -31,12 +32,18 @@
         vm.confirmarElaboracion = confirmarElaboracion;
 
 
+        MesasService.get().then(function(mesas){
+            vm.mesas = mesas;
+        }).catch(function(error){
+            console.log(error);
+        });
+
         loadComandas();
 
         function loadComandas() {
-            ComandasService.get().then(function (data) {
-                console.log(data);
-                vm.comandas = data;
+            ComandasService.get().then(function (comandas) {
+                console.log(comandas);
+                vm.comandas = comandas;
             }).catch(function(data){
                 console.log(data);
             });
@@ -44,27 +51,31 @@
 
         function getOrigen(origen_id) {
             var origen = '';
-            switch (origen_id) {
-                case 1:
-                    origen = 'Mostrador';
-                    break;
-                case 2:
-                    origen = 'Delivery';
-                    break;
-                default:
-                    origen = 'Mesa';
-                    break;
+            if(origen_id == -1) {
+                origen = 'Mostrador';
+            } else if(origen_id == -2) {
+                origen = 'Delivery';
+            } else {
+                origen = getMesa(origen_id);
             }
+
             return origen;
         }
 
-        function getNroEnvio(origen_id) {
-            var nroEnvio = '';
-            if(origen_id == 2) {
-                //TODO: en base al origen_id debería poder saber cual es el envio asociado a la comanda
-                //Falta esa tabla relacional
+        function getMesa(origen_id) {
+            for(var i=0; i <= vm.mesas.length - 1; i++) {
+                if(origen_id == vm.mesas[i].mesa_id) {
+                    return vm.mesas[i].mesa;
+                }
             }
-            return nroEnvio;
+        }
+
+        function getNroEnvio(comanda) {
+            if(comanda.origen_id == -2) {
+                return '#' + comanda.envio_id;
+            } else if(comanda.origen_id == -1) {
+                return '#' + comanda.comanda_id;
+            }
         }
 
 

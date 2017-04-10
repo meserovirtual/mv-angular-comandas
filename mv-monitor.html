@@ -4,7 +4,7 @@
          ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}">
         <div class="container-comanda-header">
             <div class="destino-titulo-comanda">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
-            <div>{{$ctrl.getNroEnvio(comanda.origen_id)}}</div>
+            <div>{{$ctrl.getNroEnvio(comanda)}}</div>
             <div>{{comanda.fecha}}</div>
         </div>
         <div class="comanda-borde-status">

@@ -50,6 +50,7 @@ class Comandas extends Main
     c.total,
     c.origen_id,
     c.fecha,
+    c.envio_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -73,6 +74,8 @@ FROM
     productos p ON cd.producto_id = p.producto_id
         LEFT JOIN
     productos pp ON ce.producto_id = pp.producto_id
+        LEFT JOIN
+    envios e ON e.envio_id = c.envio_id
 ' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE ""="" ') . ' AND c . status <> 5
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
@@ -88,6 +91,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                     'total' => $row["total"],
                     'origen_id' => $row["origen_id"],
                     'fecha' => $row["fecha"],
+                    'envio_id' => $row["envio_id"],
                     'detalles' => array()
                 );
             }
@@ -177,6 +181,9 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         }
         echo json_encode(array_values($final));
     }
+
+
+
 
     function getComandaNoEntregadas($params) {
         $db = self::$instance->db;
@@ -356,7 +363,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                 'status' => $decoded->status,
                 'mesa_id' => $decoded->mesa_id,
                 'total' => 0,
-                'origen_id' => $decoded->origen_id
+                'origen_id' => $decoded->origen_id,
+                'envio_id' => -1,
             );
             $result = $db->insert('comandas', $data);
         }
@@ -551,7 +559,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
             'status' => $decoded->status,
             'mesa_id' => $decoded->mesa_id,
             'total' => $decoded->total,
-            'origen_id' => $decoded->origen_id
+            'origen_id' => $decoded->origen_id,
+            'envio_id' => -1,
         );
 
         $result = $db->update('comandas', $data);
@@ -599,7 +608,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $db->where('comanda_detalle_id', $decoded->comanda_detalle_id);
 
         $data = array(
-          'status' => $decoded->status
+            'status' => $decoded->status
         );
 
         $result = $db->update('comandas_detalles', $data);
@@ -713,7 +722,9 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $comanda->mesa_id = (!array_key_exists("mesa_id", $comanda)) ? -2 : $comanda->mesa_id;
         $comanda->total = (!array_key_exists("total", $comanda)) ? 0.0 : $comanda->total;
         $comanda->origen_id = (!array_key_exists("origen_id", $comanda)) ? -2 : $comanda->origen_id;
+        $comanda->envio_id = (!array_key_exists("envio_id", $comanda)) ? -1 : $comanda->envio_id;
         $comanda->detalles = (!array_key_exists("detalles", $comanda)) ? array() : self::checkDetalles($comanda->detalles);
+
         return $comanda;
     }
 

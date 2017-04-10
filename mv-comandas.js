@@ -77,15 +77,15 @@
 
         function confirmarElaboracion(detalle) {
             return $http.post(url,
-              {function: 'updateStatusPlato', 'detalle': JSON.stringify(detalle)})
-              .then(function (response) {
-                  ComandasVars.clearCache = true;
-                  return response.data;
-              })
-              .catch(function (response) {
-                  ComandasVars.clearCache = true;
-                  ErrorHandler(response.data)
-              })
+                {function: 'updateStatusPlato', 'detalle': JSON.stringify(detalle)})
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                })
         }
 
         function pedir(comanda_id) {
