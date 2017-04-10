@@ -606,6 +606,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $db = self::$instance->db;
         $db->startTransaction();
         $decoded = self::checkDetalles(json_decode($params["detalle"]));
+        echo 'Detalle_id: ' . $decoded->comanda_detalle_id . ' - ';
 
         $db->where('comanda_detalle_id', $decoded->comanda_detalle_id);
 
@@ -689,6 +690,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $db->startTransaction();
         $decoded = $params["comanda_detalle_id"];
 
+        echo 'comanda_detalle_id: ' . $params["comanda_detalle_id"] . ' - ';
+        
 //        $SQL = "DELETE FROM comandas_extras WHERE comanda_detalle_id = " . $decoded;
         $db->where('comanda_detalle_id', $decoded);
         $result = $db->delete('comandas_extras');
