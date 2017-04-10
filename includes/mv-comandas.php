@@ -113,7 +113,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'platoStatus' => $row['platoStatus'],
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
-                        'cantidad' => $row['cantidad']
+                        'cantidad' => $row['cantidad'],
+						'extras' => array()
                     );
 
                     $have_det = true;
@@ -129,7 +130,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'platoStatus' => $row['platoStatus'],
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
-                        'cantidad' => $row['cantidad']
+                        'cantidad' => $row['cantidad'],
+						'extras' => array()
                     );
 
 //                    array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']], array(
