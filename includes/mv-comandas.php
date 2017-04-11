@@ -350,6 +350,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 1';
         $result = $db->rawQuery($SQL);
 
+        echo 'Creo Comanda ';
 
         $db->startTransaction();
 
@@ -403,6 +404,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
      */
     function createDetalle($params, $db = null)
     {
+        echo 'Creo Detalle ';
+
         $innerCall = true;
         if ($db === null) {
             $db = self::$instance->db;
@@ -494,6 +497,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
      */
     function createExtra($params, $db = null)
     {
+        echo 'Creo Extra ';
+
         $innerCall = true;
         if ($db === null) {
             $db = self::$instance->db;
@@ -553,6 +558,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $db->startTransaction();
         $decoded = self::checkComanda(json_decode($params["comanda"]));
 
+        echo 'comanda_id: ' . $decoded->comanda_id . ' - ';
 
         $db->where('comanda_id', $decoded->comanda_id);
 
@@ -691,7 +697,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $decoded = $params["comanda_detalle_id"];
 
         echo 'comanda_detalle_id: ' . $params["comanda_detalle_id"] . ' - ';
-        
+
 //        $SQL = "DELETE FROM comandas_extras WHERE comanda_detalle_id = " . $decoded;
         $db->where('comanda_detalle_id', $decoded);
         $result = $db->delete('comandas_extras');
