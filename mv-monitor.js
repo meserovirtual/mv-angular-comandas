@@ -42,10 +42,10 @@
 
         function loadComandas() {
             ComandasService.get().then(function (comandas) {
-                console.log(comandas);
+                //console.log(comandas);
                 vm.comandas = comandas;
-            }).catch(function(data){
-                console.log(data);
+            }).catch(function(error){
+                console.log(error);
             });
         }
 
@@ -81,23 +81,23 @@
 
         function cancelarPlato(comanda_detalle_id) {
             //console.log(comanda_detalle_id);
-
             ComandasService.quitar(comanda_detalle_id).then(function(data){
                 //console.log(data);
                 loadComandas();
-            }).catch(function(data){
-                console.log(data);
+            }).catch(function(error){
+                console.log(error);
             });
         }
 
         function confirmarElaboracion(detalle) {
             detalle.status = 2;
+            detalle.platoStatus = 2;
             //console.log(detalle);
             ComandasService.confirmarElaboracion(detalle).then(function(data){
-                console.log(data);
+                //console.log(data);
                 loadComandas();
-            }).catch(function(data){
-                console.log(data);
+            }).catch(function(error){
+                console.log(error);
             });
         }
 

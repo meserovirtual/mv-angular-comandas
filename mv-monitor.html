@@ -14,7 +14,8 @@
                     <div>Cant</div>
                     <div>Acción</div>
                 </div>
-                <div ng-repeat="detalle in comanda.detalles" class="comanda-body-detalle">
+                <div ng-repeat="detalle in comanda.detalles" class="comanda-body-detalle"
+                     ng-class="{'comanda-status-2': detalle.platoStatus == 2}">
                     <div style="justify-content: flex-start; width: 192px">{{detalle.nombre}}</div>
                     <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
                     <div class="separador-acciones-comanda">
