@@ -3,7 +3,8 @@
     <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda"
          ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}">
         <div class="container-comanda-header">
-            <div class="destino-titulo-comanda">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
+            <div class="destino-titulo-comanda"
+                 ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
             <div>{{$ctrl.getNroEnvio(comanda)}}</div>
             <div>{{comanda.fecha}}</div>
         </div>

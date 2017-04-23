@@ -10,6 +10,7 @@
 
     angular.module('mvComandas', [])
         .factory('ComandasService', ComandasService)
+        .service('ComandaService', ComandaService)
         .service('ComandasVars', ComandasVars)
     ;
 
@@ -37,6 +38,7 @@
         service.pedirPlato = pedirPlato;
         service.getComandaNoEntregadas = getComandaNoEntregadas;
         service.confirmarElaboracion = confirmarElaboracion;
+        service.updateStatusComanda = updateStatusComanda;
 
         service.update = update;
 
@@ -78,6 +80,19 @@
         function confirmarElaboracion(detalle) {
             return $http.post(url,
                 {function: 'updateStatusPlato', 'detalle': JSON.stringify(detalle)})
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                })
+        }
+
+        function updateStatusComanda(comanda) {
+            return $http.post(url,
+                {function: 'updateStatusComanda', 'comanda': JSON.stringify(comanda)})
                 .then(function (response) {
                     ComandasVars.clearCache = true;
                     return response.data;
@@ -361,6 +376,22 @@
         }
 
     }
+
+
+    ComandaService.$inject = ['$rootScope'];
+    function ComandaService($rootScope) {
+
+        this.comanda = {};
+
+        this.broadcast = function () {
+            $rootScope.$broadcast("refreshComanda")
+        };
+
+        this.listen = function (callback) {
+            $rootScope.$on("refreshComanda", callback)
+        };
+    }
+
 
     ComandasVars.$inject = [];
     /**

@@ -114,7 +114,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
                         'cantidad' => $row['cantidad'],
-						'extras' => array()
+                        'extras' => array()
                     );
 
                     $have_det = true;
@@ -131,7 +131,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                         'session_id' => $row['session_id'],
                         'comentarios' => $row['comentarios'],
                         'cantidad' => $row['cantidad'],
-						'extras' => array()
+                        'extras' => array()
                     );
 
 //                    array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']], array(
@@ -633,7 +633,31 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         }
     }
 
+    function updateStatusComanda($params)
+    {
+        $db = self::$instance->db;
+        $db->startTransaction();
+        $decoded = self::checkComanda(json_decode($params["comanda"]));
+        echo 'Detalle_id: ' . $decoded->comanda_detalle_id . ' - ';
 
+        $db->where('comanda_id', $decoded->comanda_id);
+
+        $data = array(
+            'status' => $decoded->status
+        );
+
+        $result = $db->update('comandas', $data);
+
+        if ($result) {
+            $db->commit();
+            header('HTTP / 1.0 200 Ok');
+            echo json_encode($result);
+        } else {
+            $db->rollback();
+            header('HTTP / 1.0 500 Internal Server Error');
+            echo $db->getLastError();
+        }
+    }
 
     /**
      * @description Modifica un comanda, sus fotos, precios y le asigna las categorias

@@ -14,22 +14,24 @@
         }
     }
 
-    MvMonitorController.$inject = ["ComandasService", "ComandasVars", "MvUtils", "MesasService", "EnviosService"];
+    MvMonitorController.$inject = ["ComandasService", "ComandasVars", "MvUtils", "MesasService", "EnviosService", "$location", "ComandaService"];
     /**
      * @param mvMonitor
      * @constructor
      */
-    function MvMonitorController(ComandasService, ComandasVars, MvUtils, MesasService, EnviosService) {
+    function MvMonitorController(ComandasService, ComandasVars, MvUtils, MesasService, EnviosService, $location, ComandaService) {
         var vm = this;
 
         vm.comandas = [];
         vm.comanda = {};
         vm.mesas = [];
 
+        //funciones
         vm.getOrigen = getOrigen;
         vm.getNroEnvio = getNroEnvio;
         vm.cancelarPlato = cancelarPlato;
         vm.confirmarElaboracion = confirmarElaboracion;
+        vm.showCaja = showCaja;
 
 
         MesasService.get().then(function(mesas){
@@ -41,7 +43,15 @@
         loadComandas();
 
         function loadComandas() {
-            ComandasService.get().then(function (comandas) {
+            /*
+             ComandasService.get().then(function (comandas) {
+             //console.log(comandas);
+             vm.comandas = comandas;
+             }).catch(function(error){
+             console.log(error);
+             });
+             */
+            ComandasService.getByParams("status", "0,1,2,3", "true").then(function (comandas) {
                 //console.log(comandas);
                 vm.comandas = comandas;
             }).catch(function(error){
@@ -101,6 +111,12 @@
             });
         }
 
+        function showCaja(comanda) {
+            //console.log(comanda);
+            ComandaService.comanda = comanda;
+            //ComandaService.broadcast();
+            $location.path('/caja/cobros');
+        }
 
         // Implementación de la paginación
         vm.start = 0;
