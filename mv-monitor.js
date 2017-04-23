@@ -56,7 +56,7 @@
             } else if(origen_id == -2) {
                 origen = 'Delivery';
             } else {
-                origen = getMesa(origen_id);
+                origen = 'Mesa ' + getMesa(origen_id);
             }
 
             return origen;
