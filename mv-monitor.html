@@ -13,7 +13,7 @@
                 <div ng-repeat="detalle in comanda.detalles"
                      ng-class="{'comanda-status-2-detalle': detalle.platoStatus == 2}">
                     <div class="comanda-body-detalle">
-                        <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
+                        <div style="width: 20px; margin-right: 10px; justify-content: flex-end">{{detalle.cantidad}}</div>
                         <div style="justify-content: flex-start; width: 100%">{{detalle.nombre}}</div>
                         <div class="separador-acciones-comanda">
                             <button type="button" class="boton-confirmar-comanda"
@@ -26,11 +26,10 @@
                             </button>
                         </div>
                     </div>
-                    <div ng-if="detalle.comentarios.length > 0">
+                    <div class="comanda-observaciones" ng-if="detalle.comentarios.length > 0">
                         <div style="margin-left: 10px">{{detalle.comentarios}}</div>
                     </div>
                 </div>
-                <div class="container-comanda-footer">Observaciones</div>
             </div>
         </div>
     </div>
