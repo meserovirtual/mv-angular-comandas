@@ -219,6 +219,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
     c.total,
     c.origen_id,
     c.fecha,
+    c.envio_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -365,7 +366,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                 'usuario_id' => $decoded->usuario_id,
                 'status' => $decoded->status,
                 'mesa_id' => $decoded->mesa_id,
-                'total' => 0,
+                //'total' => 0,
+                'total' => $decoded->total,
                 'origen_id' => $decoded->origen_id,
                 'envio_id' => -1,
             );

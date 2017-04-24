@@ -43,14 +43,6 @@
         loadComandas();
 
         function loadComandas() {
-            /*
-             ComandasService.get().then(function (comandas) {
-             //console.log(comandas);
-             vm.comandas = comandas;
-             }).catch(function(error){
-             console.log(error);
-             });
-             */
             ComandasService.getByParams("status", "0,1,2,3", "true").then(function (comandas) {
                 //console.log(comandas);
                 vm.comandas = comandas;
