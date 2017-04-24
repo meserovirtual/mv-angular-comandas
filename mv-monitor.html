@@ -1,5 +1,5 @@
 <div class="lista container-flex scroll-x">
-
+    <div class="fondo-comandas"></div>
     <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
         <div class="container-comanda-header">
             <div class="destino-titulo-comanda"
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                     <div class="comanda-observaciones" ng-if="detalle.comentarios.length > 0">
+                        <div class="imagen-observaciones"></div>
                         <div style="margin-left: 10px">{{detalle.comentarios}}</div>
                     </div>
                 </div>
