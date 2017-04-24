@@ -3,30 +3,34 @@
     <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
         <div class="container-comanda-header">
             <div class="destino-titulo-comanda"
-                    ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
+                 ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
             <div style="margin-left: 10px">{{$ctrl.getNroEnvio(comanda)}}</div>
             <div style="margin-left: 10px">{{comanda.fecha}}</div>
         </div>
         <div  style="height: 10px" ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}"></div>
         <div class="comanda-borde-status">
             <div class="container-comanda-body">
-                   <div ng-repeat="detalle in comanda.detalles" class="comanda-body-detalle"
+                <div ng-repeat="detalle in comanda.detalles"
                      ng-class="{'comanda-status-2-detalle': detalle.platoStatus == 2}">
-                       <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
-                       <div style="justify-content: flex-start; width: 100%">{{detalle.nombre}}</div>
-                       <div class="separador-acciones-comanda">
-                        <button type="button" class="boton-confirmar-comanda"
-                                ng-click="$ctrl.confirmarElaboracion(detalle);" title="Confirmar Elaboración">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="boton-cancelar-comanda"
-                                ng-click="$ctrl.cancelarPlato(detalle.comanda_detalle_id);" title="Cancelar">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                       </div>
-                   </div>
+                    <div class="comanda-body-detalle">
+                        <div style="width: 20px; justify-content: flex-end">{{detalle.cantidad}}</div>
+                        <div style="justify-content: flex-start; width: 100%">{{detalle.nombre}}</div>
+                        <div class="separador-acciones-comanda">
+                            <button type="button" class="boton-confirmar-comanda"
+                                    ng-click="$ctrl.confirmarElaboracion(detalle);" title="Confirmar Elaboración">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="boton-cancelar-comanda"
+                                    ng-click="$ctrl.cancelarPlato(detalle.comanda_detalle_id);" title="Cancelar">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-if="detalle.comentarios.length > 0">
+                        <div style="margin-left: 10px">{{detalle.comentarios}}</div>
+                    </div>
+                </div>
                 <div class="container-comanda-footer">Observaciones</div>
-
             </div>
         </div>
     </div>
