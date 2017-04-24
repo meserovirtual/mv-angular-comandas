@@ -1,13 +1,13 @@
 <div class="lista container-flex scroll-x">
 
-    <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda"
-         ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}">
+    <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
         <div class="container-comanda-header">
             <div class="destino-titulo-comanda"
-                 ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
+                    ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
             <div>{{$ctrl.getNroEnvio(comanda)}}</div>
             <div>{{comanda.fecha}}</div>
         </div>
+        <div  style="height: 5px" ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}"></div>
         <div class="comanda-borde-status">
             <div class="container-comanda-body">
                 <div class="comanda-body-header">
