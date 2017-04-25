@@ -1,19 +1,28 @@
-<div class="lista container-flex scroll-x">
+<div class="lista container-flex scroll-x"
+     ng-keyup="$ctrl.navigate($event)"
+     tabindex="0"
+     id="mv-monitor-container">
     <div class="fondo-comandas"></div>
-    <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda">
+    <div ng-repeat="comanda in $ctrl.comandas" class="container-comanda"
+         id="comanda-{{$index}}"
+         ng-class="{'comanda-selected': $ctrl.comandaSelected == $index }">
         <div class="container-comanda-header">
             <div class="destino-titulo-comanda"
-                 ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}</div>
+                 ng-click="$ctrl.showCaja(comanda);">{{$ctrl.getOrigen(comanda.origen_id)}}
+            </div>
             <div style="margin-left: 10px">{{$ctrl.getNroEnvio(comanda)}}</div>
             <div style="margin-left: 10px">{{comanda.fecha}}</div>
         </div>
-        <div  style="height: 10px" ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}"></div>
+        <div style="height: 10px"
+             ng-class="{'comanda-status-0':comanda.status == 0, 'comanda-status-1': comanda.status == 1, 'comanda-status-2': comanda.status == 2}"></div>
         <div class="comanda-borde-status">
             <div class="container-comanda-body">
                 <div ng-repeat="detalle in comanda.detalles"
-                     ng-class="{'comanda-status-2-detalle': detalle.platoStatus == 2}">
+                     ng-class="{'comanda-status-2-detalle': detalle.platoStatus == 2,
+                                'comanda-row-selected': $ctrl.activeDetalle == 'detalle-'+$parent.$index + '-' +$index}">
                     <div class="comanda-body-detalle">
-                        <div style="width: 20px; margin-right: 10px; justify-content: flex-end">{{detalle.cantidad}}</div>
+                        <div style="width: 20px; margin-right: 10px; justify-content: flex-end">{{detalle.cantidad}}
+                        </div>
                         <div style="justify-content: flex-start; width: 100%">{{detalle.nombre}}</div>
                         <div class="separador-acciones-comanda">
                             <button type="button" class="boton-confirmar-comanda"
