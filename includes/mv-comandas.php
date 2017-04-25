@@ -619,7 +619,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $db->where('comanda_detalle_id', $decoded->comanda_detalle_id);
 
         $data = array(
-            'status' => $decoded->status
+            'status' => $decoded->status,
+            'preparacion_fin' => $decoded->preparacion_fin
         );
 
         $result = $db->update('comandas_detalles', $data);
