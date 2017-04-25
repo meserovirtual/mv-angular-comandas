@@ -348,7 +348,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
 
         $db = self::$instance->db;
         $decoded = self::checkComanda(json_decode($params["comanda"]));
-        $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 1';
+        $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 0';
         $result = $db->rawQuery($SQL);
 
         echo 'Creo Comanda ';
@@ -357,8 +357,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
 
 
         if (sizeof($result) > 0) {
-//            $SQL = 'update comandas set total = (select sum()) where comanda_id = '. $result.' and status = 1';
-
+            $SQL2 = 'update comandas set total = (select sum(precio) from comandas_detalles where comanda_id = ' . $result[0]['comanda_id'] . ') where comanda_id = ' . $result[0]['comanda_id'] . ' and status = 0';
+            $db->rawQuery($SQL2);
 
             $result = $result[0]['comanda_id'];
         } else {
