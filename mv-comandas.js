@@ -210,26 +210,26 @@
         function get() {
             MvUtilsGlobals.startWaiting();
             var urlGet = url + '?function=getComanda';
-            var $httpDefaultCache = $cacheFactory.get('$http');
-            var cachedData = [];
+            // var $httpDefaultCache = $cacheFactory.get('$http');
+            // var cachedData = [];
 
 
             // Verifica si existe el cache de comanda
-            if ($httpDefaultCache.get(urlGet) != undefined) {
-                if (ComandasVars.clearCache) {
-                    $httpDefaultCache.remove(urlGet);
-                }
-                else {
-                    var deferred = $q.defer();
-                    cachedData = $httpDefaultCache.get(urlGet);
-                    deferred.resolve(cachedData);
-                    MvUtilsGlobals.stopWaiting();
-                    return deferred.promise;
-                }
-            }
+            // if ($httpDefaultCache.get(urlGet) != undefined) {
+            //     if (ComandasVars.clearCache) {
+            //         $httpDefaultCache.remove(urlGet);
+            //     }
+            //     else {
+            //         var deferred = $q.defer();
+            //         cachedData = $httpDefaultCache.get(urlGet);
+            //         deferred.resolve(cachedData);
+            //         MvUtilsGlobals.stopWaiting();
+            //         return deferred.promise;
+            //     }
+            // }
 
 
-            return $http.get(urlGet, {cache: true})
+            return $http.get(urlGet, {cache: false})
                 .then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
                         if(response.data[i].precios != undefined) {
@@ -251,7 +251,7 @@
                         }
                     }
 
-                    $httpDefaultCache.put(urlGet, response.data);
+                    // $httpDefaultCache.put(urlGet, response.data);
                     ComandasVars.clearCache = false;
                     ComandasVars.paginas = (response.data.length % ComandasVars.paginacion == 0) ? parseInt(response.data.length / ComandasVars.paginacion) : parseInt(response.data.length / ComandasVars.paginacion) + 1;
                     MvUtilsGlobals.stopWaiting();
