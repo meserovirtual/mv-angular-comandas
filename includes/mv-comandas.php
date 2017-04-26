@@ -494,7 +494,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 0';
         $result = $db->rawQuery($SQL);
 
-        echo 'Creo Comanda ';
+//        echo 'Creo Comanda ';
 
         $db->startTransaction();
 
@@ -549,7 +549,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
      */
     function createDetalle($params, $db = null)
     {
-        echo 'Creo Detalle ';
+//        echo 'Creo Detalle ';
 
         $innerCall = true;
         if ($db === null) {
@@ -858,6 +858,32 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         }
     }
 
+
+    function ordenar($params){
+        $db = self::$instance->db;
+        $db->startTransaction();
+        $decoded = json_decode($params["comanda_id"]);
+
+
+        $db->where('comanda_id', $decoded);
+
+        $data = array(
+            'status' => 1
+        );
+
+        $result = $db->update('comandas_detalles', $data);
+
+        if ($result) {
+            $db->commit();
+            header('HTTP / 1.0 200 Ok');
+            echo json_encode($result);
+        } else {
+            $db->rollback();
+            header('HTTP / 1.0 500 Internal Server Error');
+            echo $db->getLastError();
+        }
+    }
+
     /**
      * @description Modifica un comanda, sus fotos, precios y le asigna las categorias
      * @param $product
@@ -947,6 +973,9 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         }
         return $extras;
     }
+
+
+
 
 }
 
