@@ -565,7 +565,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
         foreach($decoded as $detalle){
             $data = array(
                 'producto_id' => $detalle->producto_id,
-                'status' => 1,
+                'status' => $detalle->status,
                 'comentarios' => $detalle->comentarios,
                 'comanda_id' => $params->comanda_id,
                 'cantidad' => $detalle->cantidad,

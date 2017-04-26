@@ -18,6 +18,7 @@
         <div class="comanda-borde-status">
             <div class="container-comanda-body">
                 <div ng-repeat="detalle in comanda.detalles"
+                     ng-if="detalle.platoStatus != 1"
                      ng-class="{'comanda-status-2-detalle': detalle.platoStatus == 2,
                                 'comanda-row-selected': $ctrl.activeDetalle == 'detalle-'+$parent.$index + '-' +$index}">
                     <div class="comanda-body-detalle">
