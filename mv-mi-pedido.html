@@ -11,7 +11,7 @@
     <div class="productos-list">
         <h1>Nro. de comanda: {{$ctrl.comanda[0].comanda_id}}</h1>
         <div class="mi-pedido-pedido"
-             ng-repeat="item in $ctrl.comanda[0].detalles">
+             ng-repeat="item in $ctrl.comanda[0].detalles"  ng-class="{'':item.platoStatus == 0, '':item.platoStatus == 1, '':item.platoStatus == 2, '':item.platoStatus == 3, '':item.platoStatus == 4, '':item.platoStatus == 5 }">
             <div class="mi-pedido-top" ng-class="{'mi-pedido-no-pedido': item.status == 1}">
                 <span class="mi-pedido-top-left">{{item.nombre}}</span>
                 <span class="mi-pedido-top-right">{{item.precio | currency}}</span>
