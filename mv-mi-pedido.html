@@ -20,7 +20,7 @@
                 <span class="mi-pedido-extra-left">{{extra.extra}}</span>
                 <span class="mi-pedido-extra-right">{{extra.precio | currency}}</span>
             </div>
-            <img ng-if="item.status == 1" class="mi-pedido-eliminar" ng-click="$ctrl.quitar(item.comanda_detalle_id)" src="images/eliminar.svg"/>
+            <img ng-if="item.status == 0" class="mi-pedido-eliminar" ng-click="$ctrl.quitar(item.comanda_detalle_id)" src="images/eliminar.svg"/>
         </div>
     </div>
     <div class="botonera">
