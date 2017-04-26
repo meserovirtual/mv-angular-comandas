@@ -45,6 +45,7 @@
 
         service.remove = remove;
         service.save = save;
+        service.ordenar = ordenar;
 
         return service;
 
@@ -106,7 +107,7 @@
 
         function pedir(comanda_id) {
             return $http.post(url,
-                {function: 'updatePedido', 'comanda_id': comanda_id, 'status': 2})
+                {function: 'updatePedido', 'comanda_id': comanda_id, 'status': 1})
                 .then(function (response) {
                     ComandasVars.clearCache = true;
                     return response.data;
@@ -378,6 +379,25 @@
                 {
                     'function': 'updateComanda',
                     'comanda': JSON.stringify(comanda)
+                })
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                });
+        }
+        /** @name: update
+         * @param comanda
+         * @description: Realiza update al comanda.
+         */
+        function ordenar(comanda_id) {
+            return $http.post(url,
+                {
+                    'function': 'ordenar',
+                    'comanda_id': JSON.stringify(comanda_id)
                 })
                 .then(function (response) {
                     ComandasVars.clearCache = true;

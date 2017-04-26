@@ -27,6 +27,7 @@
         vm.comanda = {};
 
         vm.quitar = quitar;
+        vm.ordenar = ordenar;
 
         $rootScope.$on('miPedidoRefresh', function(){
             ComandasService.getByMesa(UserService.getDataFromToken('mesa_id'), UserService.getDataFromToken('session_id')).then(
@@ -55,6 +56,14 @@
             })
         }
 
+        function ordenar(comanda_id){
+            ComandasService.ordenar(comanda_id).then(
+                function (data) {
+                    console.log(data);
+
+                }
+            )
+        }
 
     }
 
