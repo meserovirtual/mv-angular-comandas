@@ -427,7 +427,8 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                 'comanda_id' => $params->comanda_id,
                 'cantidad' => $detalle->cantidad,
                 'precio' => $detalle->precio,
-                'session_id' => getDataFromToken('session_id')
+                'session_id' => getDataFromToken('session_id'),
+                'usuario_id' => ($decoded->usuario_id == null) ? -2 : $decoded->usuario_id == null,
             );
 
             $results = $db->insert('comandas_detalles', $data);
