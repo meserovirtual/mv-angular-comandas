@@ -56,8 +56,8 @@
             })
         }
 
-        function ordenar(comanda_id){
-            ComandasService.ordenar(comanda_id).then(
+        function ordenar(){
+            ComandasService.ordenar(vm.comanda[0].comanda_id).then(
                 function (data) {
                     console.log(data);
 

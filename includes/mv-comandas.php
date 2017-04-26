@@ -76,7 +76,7 @@ FROM
     productos pp ON ce.producto_id = pp.producto_id
         LEFT JOIN
     envios e ON e.envio_id = c.envio_id
-' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE ""="" ') . ' AND c . status <> 5
+' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE ""="" ') . ' AND c . status <> 5 AND cd.status != 0 
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
