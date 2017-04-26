@@ -39,6 +39,7 @@
         service.getComandaNoEntregadas = getComandaNoEntregadas;
         service.confirmarElaboracion = confirmarElaboracion;
         service.updateStatusComanda = updateStatusComanda;
+        service.getPlatosTiempoEsperaExcedido = getPlatosTiempoEsperaExcedido;
 
         service.update = update;
 
@@ -160,6 +161,19 @@
         function getComandaNoEntregadas(comanda) {
             return $http.post(url,
                 {function: 'getComandaNoEntregadas', 'comanda': comanda})
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                });
+        }
+
+        function getPlatosTiempoEsperaExcedido(comanda) {
+            return $http.post(url,
+                {function: 'getPlatosTiempoEsperaExcedido', 'comanda': comanda})
                 .then(function (response) {
                     ComandasVars.clearCache = true;
                     return response.data;
