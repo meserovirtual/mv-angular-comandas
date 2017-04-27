@@ -866,6 +866,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
 
 
         $db->where('comanda_id', $decoded);
+        $db->where('status', 0);
 
         $data = array(
             'status' => 1
