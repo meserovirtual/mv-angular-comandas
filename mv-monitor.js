@@ -146,7 +146,8 @@
         function confirmarElaboracion(detalle) {
             detalle.status = 2;
             detalle.platoStatus = 2;
-            detalle.preparacion_fin = new Date();
+            // detalle.preparacion_fin = (new Date()).substr(1,10);
+            // console.log(detalle.preparacion_fin);
             //console.log(detalle);
             ComandasService.confirmarElaboracion(detalle).then(function (data) {
                 //console.log(data);

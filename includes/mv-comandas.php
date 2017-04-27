@@ -765,7 +765,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
 
         $data = array(
             'status' => $decoded->status,
-            'preparacion_fin' => $decoded->preparacion_fin
+            'preparacion_fin' => $db->now()
         );
 
         $result = $db->update('comandas_detalles', $data);
