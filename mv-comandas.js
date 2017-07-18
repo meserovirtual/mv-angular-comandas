@@ -40,6 +40,7 @@
         service.confirmarElaboracion = confirmarElaboracion;
         service.updateStatusComanda = updateStatusComanda;
         service.getPlatosTiempoEsperaExcedido = getPlatosTiempoEsperaExcedido;
+        service.getPedidosWeb = getPedidosWeb;
 
         service.update = update;
 
@@ -175,6 +176,19 @@
         function getPlatosTiempoEsperaExcedido(comanda) {
             return $http.post(url,
                 {function: 'getPlatosTiempoEsperaExcedido', 'comanda': comanda})
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                });
+        }
+
+        function getPedidosWeb() {
+            return $http.post(url,
+                {function: 'getPedidosWeb'})
                 .then(function (response) {
                     ComandasVars.clearCache = true;
                     return response.data;
