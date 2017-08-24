@@ -69,6 +69,31 @@
             if (vm.comanda.length == 0) {
                 return;
             }
+            ComandasService.get().then(function (comandas) {
+                //console.log(comandas);
+                //vm.comandas = comandas;
+                vm.comandas = [];
+                var aux = Object.getOwnPropertyNames(comandas);
+                aux.forEach(function (item, index, array) {
+                    //console.log(comandas[item]);
+                    if (typeof comandas[item] === 'object') {
+                        if(comandas[item].status < 4)
+                            vm.comandas.push(comandas[item]);
+                    }
+                });
+
+                $timeout(function () {
+                    vm.el[0].focus();
+                    var _comandas = vm.el[0].getElementsByClassName('container-comanda');
+                    var boundingRect = vm.el[0].getBoundingClientRect();
+                    var comandaBoundingRect = _comandas[0].getBoundingClientRect();
+
+                    vm.columns = Math.floor(boundingRect.width / (comandaBoundingRect.width * 1.1));
+                    vm.rows = (_comandas.length % vm.columns == 2) ? vm.comandas.length / vm.columns : Math.ceil(_comandas.length / vm.columns);
+                }, 0);
+
+            });
+            /*
             ComandasService.getByParams("status", "0,1,2,3", "true").then(function (comandas) {
                 //console.log(comandas);
                 vm.comandas = comandas;
@@ -88,8 +113,7 @@
             }).catch(function (error) {
                 console.log(error);
             });
-
-
+            */
         }
 
 

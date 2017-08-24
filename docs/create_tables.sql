@@ -38,4 +38,14 @@ CREATE TABLE comandas_extras (
   PRIMARY KEY (comanda_extra_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+# RESERVAS
+CREATE TABLE reservas (
+  reserva_id int(11) NOT NULL AUTO_INCREMENT,
+  comanda_id int(11) NOT NULL,
+  sucursal_id int(11) DEFAULT '-1',
+  comensales int(11) DEFAULT '1',
+  fecha timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  pagado int(1) DEFAULT 0 COMMENT '0-No Pagada, 1-Pagada',
+  PRIMARY KEY (reserva_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

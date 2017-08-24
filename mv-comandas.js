@@ -28,6 +28,7 @@
         service.getByParams = getByParams;
         service.getMasVendidos = getMasVendidos;
         service.getByCategoria = getByCategoria;
+        service.getComandaByMesa = getComandaByMesa;
 
         service.create = create;
         service.pedir = pedir;
@@ -189,6 +190,19 @@
         function getPedidosWeb() {
             return $http.post(url,
                 {function: 'getPedidosWeb'})
+                .then(function (response) {
+                    ComandasVars.clearCache = true;
+                    return response.data;
+                })
+                .catch(function (response) {
+                    ComandasVars.clearCache = true;
+                    ErrorHandler(response.data)
+                });
+        }
+
+        function getComandaByMesa(mesa_id) {
+            return $http.post(url,
+                {function: 'getComandaByMesa', 'mesa_id': mesa_id})
                 .then(function (response) {
                     ComandasVars.clearCache = true;
                     return response.data;
