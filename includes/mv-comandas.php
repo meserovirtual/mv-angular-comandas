@@ -807,9 +807,7 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
         $result = $db->rawQuery($SQL);
 
 //        echo 'Creo Comanda ';
-
         $db->startTransaction();
-
 
         if (sizeof($result) > 0) {
             $SQL2 = 'update comandas set total = (select sum(precio) from comandas_detalles where comanda_id = ' . $result[0]['comanda_id'] . ') where comanda_id = ' . $result[0]['comanda_id'] . ' and status = 0';
@@ -831,16 +829,17 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
 
         if ($result > -1) {
 //            foreach ($decoded->kits as $detalle) {
-
             $decoded->comanda_id = $result;
-            if (!self::createDetalle($decoded, $db)) {
+            $aux = self::createDetalle($decoded, $db);
+            echo $aux;
+            //if (!self::createDetalle($decoded, $db)) {
+            if ($aux < 0) {
                 $db->rollback();
                 header('HTTP / 1.0 500 Internal Server Error');
                 echo $db->getLastError();
                 return;
             }
 //            }
-
 
             $db->commit();
             header('HTTP / 1.0 200 Ok');
@@ -905,7 +904,6 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
 
         if ($innerCall) {
             foreach ($decoded->kits as $extra) {
-
                 $extra->comanda_detalle_id = $results;
                 if ($extra->selected == 'true' && $extra->opcional == 1) {
                     if (!self::createExtra($extra, $db)) {
@@ -919,7 +917,6 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
         } else {
 
             foreach ($decoded->kits as $extra) {
-
                 $extra->comanda_detalle_id = $results;
                 if ($extra->selected == true && $extra->opcional == 1) {
                     if (!self::createExtra($extra, $db)) {
@@ -930,7 +927,6 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
                     }
                 }
             }
-
 
             if ($results > -1) {
                 $db->commit();
@@ -943,8 +939,9 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
             }
         }
 
-        return $results > -1;
-
+        $aux1 = ($results > -1) ? true : false;
+        return $aux1;
+        //return $results > -1;
     }
 
     /**
