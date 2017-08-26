@@ -51,6 +51,7 @@ class Comandas extends Main
     c.origen_id,
     c.fecha,
     c.envio_id,
+    c.mesa_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -92,6 +93,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                     'origen_id' => $row["origen_id"],
                     'fecha' => $row["fecha"],
                     'envio_id' => $row["envio_id"],
+                    'mesa_id' => $row["mesa_id"],
                     'detalles' => array()
                 );
             }
@@ -199,6 +201,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
     c.fecha,
     c.envio_id,
     c.usuario_id,
+    c.mesa_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -233,14 +236,15 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
 
             if (!isset($final[$row["comanda_id"]])) {
                 $final[$row["comanda_id"]] = array(
-                  'comanda_id' => $row["comanda_id"],
-                  'status' => $row["status"],
-                  'total' => $row["total"],
-                  'origen_id' => $row["origen_id"],
-                  'fecha' => $row["fecha"],
-                  'envio_id' => $row["envio_id"],
-                  'usuario_id' => $row["usuario_id"],
-                  'detalles' => array()
+                    'comanda_id' => $row["comanda_id"],
+                    'status' => $row["status"],
+                    'total' => $row["total"],
+                    'origen_id' => $row["origen_id"],
+                    'fecha' => $row["fecha"],
+                    'envio_id' => $row["envio_id"],
+                    'usuario_id' => $row["usuario_id"],
+                    'mesa_id' => $row["mesa_id"],
+                    'detalles' => array()
                 );
             }
             $have_det = false;
@@ -254,15 +258,15 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                     }
                 } else {
                     $final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']] = array(
-                      'comanda_detalle_id' => $row['comanda_detalle_id'],
-                      'producto_id' => $row['producto_id'],
-                      'nombre' => $row['nombre'],
-                      'precio' => $row['precio'],
-                      'platoStatus' => $row['platoStatus'],
-                      'session_id' => $row['session_id'],
-                      'comentarios' => $row['comentarios'],
-                      'cantidad' => $row['cantidad'],
-                      'extras' => array()
+                        'comanda_detalle_id' => $row['comanda_detalle_id'],
+                        'producto_id' => $row['producto_id'],
+                        'nombre' => $row['nombre'],
+                        'precio' => $row['precio'],
+                        'platoStatus' => $row['platoStatus'],
+                        'session_id' => $row['session_id'],
+                        'comentarios' => $row['comentarios'],
+                        'cantidad' => $row['cantidad'],
+                        'extras' => array()
                     );
 
                     $have_det = true;
@@ -271,15 +275,15 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                 if (!$have_det) {
                     array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']], array());
                     $final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']] = array(
-                      'comanda_detalle_id' => $row['comanda_detalle_id'],
-                      'producto_id' => $row['producto_id'],
-                      'nombre' => $row['nombre'],
-                      'precio' => $row['precio'],
-                      'platoStatus' => $row['platoStatus'],
-                      'session_id' => $row['session_id'],
-                      'comentarios' => $row['comentarios'],
-                      'cantidad' => $row['cantidad'],
-                      'extras' => array()
+                        'comanda_detalle_id' => $row['comanda_detalle_id'],
+                        'producto_id' => $row['producto_id'],
+                        'nombre' => $row['nombre'],
+                        'precio' => $row['precio'],
+                        'platoStatus' => $row['platoStatus'],
+                        'session_id' => $row['session_id'],
+                        'comentarios' => $row['comentarios'],
+                        'cantidad' => $row['cantidad'],
+                        'extras' => array()
                     );
 
 //                    array_push($final[$row['comanda_id']]['detalles'][$row['comanda_detalle_id']], array(
@@ -344,6 +348,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
     c.origen_id,
     c.fecha,
     c.envio_id,
+    c.mesa_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -387,6 +392,7 @@ GROUP BY c.comanda_id, c.status, cd.comanda_detalle_id, cd.producto_id, p.nombre
                     'origen_id' => $row["origen_id"],
                     'fecha' => $row["fecha"],
                     'envio_id' => $row["envio_id"],
+                    'mesa_id' => $row["mesa_id"],
                     'detalles' => array()
                 );
             }
@@ -509,6 +515,7 @@ GROUP BY c.comanda_id, c.status, cd.comanda_detalle_id, cd.producto_id, p.nombre
     c.origen_id,
     c.fecha,
     c.envio_id,
+    c.mesa_id,
     cd.comanda_detalle_id,
     cd.producto_id,
     p.nombre,
@@ -547,6 +554,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
                     'total' => $row["total"],
                     'origen_id' => $row["origen_id"],
                     'fecha' => $row["fecha"],
+                    'mesa_id' => $row["mesa_id"],
                     'detalles' => array()
                 );
             }
