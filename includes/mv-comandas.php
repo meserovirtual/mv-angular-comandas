@@ -77,7 +77,7 @@ FROM
     productos pp ON ce.producto_id = pp.producto_id
         LEFT JOIN
     envios e ON e.envio_id = c.envio_id
-' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE cd.status != 0 ') . ' AND c . status <> 5 
+' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE cd.status != 0 ') . ' AND c . status <> 5
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
@@ -1049,9 +1049,10 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
 
         if ($result) {
             foreach ($decoded->detalles as $detalle) {
-
-                $detalle['comanda_id'] = $result;
-                if (!self::createDetalle(json_encode(array('detalle' => $detalle), $db))) {
+                //$detalle['comanda_id'] = $decoded->comanda_id;
+                $detalle->comanda_id = $decoded->comanda_id;
+                //if (!self::createDetalle(json_encode(array('detalle' => $detalle), $db))) {
+                if (!self::createDetalle(json_encode($detalle), $db)) {
                     $db->rollback();
                     header('HTTP / 1.0 500 Internal Server Error');
                     echo $db->getLastError();
@@ -1291,9 +1292,6 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
         }
         return $extras;
     }
-
-
-
 
 }
 
