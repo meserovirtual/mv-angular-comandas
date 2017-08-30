@@ -85,11 +85,16 @@
                 $timeout(function () {
                     vm.el[0].focus();
                     var _comandas = vm.el[0].getElementsByClassName('container-comanda');
-                    var boundingRect = vm.el[0].getBoundingClientRect();
-                    var comandaBoundingRect = _comandas[0].getBoundingClientRect();
+                    if(_comandas.length > 0) {
+                        var boundingRect = vm.el[0].getBoundingClientRect();
+                        var comandaBoundingRect = _comandas[0].getBoundingClientRect();
 
-                    vm.columns = Math.floor(boundingRect.width / (comandaBoundingRect.width * 1.1));
-                    vm.rows = (_comandas.length % vm.columns == 2) ? vm.comandas.length / vm.columns : Math.ceil(_comandas.length / vm.columns);
+                        vm.columns = Math.floor(boundingRect.width / (comandaBoundingRect.width * 1.1));
+                        vm.rows = (_comandas.length % vm.columns == 2) ? vm.comandas.length / vm.columns : Math.ceil(_comandas.length / vm.columns);
+                    } else {
+                        vm.columns = 0;
+                        vm.rows = 0;
+                    }
                 }, 0);
 
             });
