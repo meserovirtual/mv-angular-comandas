@@ -77,7 +77,7 @@ FROM
     productos pp ON ce.producto_id = pp.producto_id
         LEFT JOIN
     envios e ON e.envio_id = c.envio_id
-' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE cd.status != 0 ') . ' AND c . status <> 5 
+' . (($mesa_id != null) ? ' WHERE c.mesa_id = ' . $mesa_id . ' ' : ' WHERE cd.status != 0 ') . ' AND c . status <> 5 AND c.empresa_id = ' . getEmpresa() .'
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
@@ -227,7 +227,7 @@ FROM
     productos pp ON ce.producto_id = pp.producto_id
         LEFT JOIN
     envios e ON e.envio_id = c.envio_id
-WHERE c.mesa_id = ' . $params["mesa_id"] . ' AND c.status <> 5
+WHERE c.mesa_id = ' . $params["mesa_id"] . ' AND c.status <> 5 AND c.empresa_id = ' . getEmpresa().' 
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
@@ -376,7 +376,7 @@ FROM
     productos pp ON ce.producto_id = pp.producto_id
         LEFT JOIN
     envios e ON e.envio_id = c.envio_id
-WHERE c.status IN (0,1,2,3) AND cd.status = 1
+WHERE c.status IN (0,1,2,3) AND cd.status = 1 AND c.empresa_id = ' . getEmpresa() .'  
 GROUP BY c.comanda_id, c.status, cd.comanda_detalle_id, cd.producto_id, p.nombre, cd.status, cd.comentarios, cd.cantidad, ce.comanda_extra_id, ce.producto_id, pp.nombre, ce.cantidad;
 ');
 
@@ -494,7 +494,7 @@ GROUP BY c.comanda_id, c.status, cd.comanda_detalle_id, cd.producto_id, p.nombre
             FROM comandas
             WHERE 	HOUR(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) = 0 AND
 		                MINUTE(TIMEDIFF(CURRENT_TIMESTAMP(), fecha)) <= 30 AND
-		                status IN (1,2);
+		                status IN (1,2) AND empresa_id = ' . getEmpresa() .';
         ');
 
         $comandaIn = '';
@@ -539,7 +539,7 @@ FROM
     productos p ON cd.producto_id = p.producto_id
         LEFT JOIN
     productos pp ON ce.producto_id = pp.producto_id
- WHERE c.comanda_id NOT IN ('. $comandaIn .') AND c.status IN (1,2)
+ WHERE c.comanda_id NOT IN ('. $comandaIn .') AND c.status IN (1,2) AND c.empresa_id = ' . getEmpresa() .' 
 GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_id , p . nombre , cd . status , cd . comentarios , cd . cantidad , ce . comanda_extra_id , ce . producto_id , pp . nombre , ce . cantidad;
 ');
 
@@ -684,7 +684,7 @@ GROUP BY c . comanda_id , c . status , cd . comanda_detalle_id , cd . producto_i
     envios e ON e.envio_id = c.envio_id
         LEFT JOIN
     usuarios u ON u.usuario_id = e.usuario_id
-    WHERE cd.status <> 5 AND origen_id = -2
+    WHERE cd.status <> 5 AND origen_id = -2 AND c.empresa_id = ' . getEmpresa() .' 
 GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.status,cd.comentarios,cd.cantidad,ce.comanda_extra_id,ce.producto_id,pp.nombre,ce.cantidad;
 ');
 
@@ -811,14 +811,14 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
 
         $db = self::$instance->db;
         $decoded = self::checkComanda(json_decode($params["comanda"]));
-        $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 0';
+        $SQL = 'select * from comandas where mesa_id = ' . $decoded->mesa_id . ' and status = 0 AND empresa_id = ' . getEmpresa();
         $result = $db->rawQuery($SQL);
 
 //        echo 'Creo Comanda ';
         $db->startTransaction();
 
         if (sizeof($result) > 0) {
-            $SQL2 = 'update comandas set total = (select sum(precio) from comandas_detalles where comanda_id = ' . $result[0]['comanda_id'] . ') where comanda_id = ' . $result[0]['comanda_id'] . ' and status = 0';
+            $SQL2 = 'update comandas set total = (select sum(precio) from comandas_detalles where comanda_id = ' . $result[0]['comanda_id'] . ') where comanda_id = ' . $result[0]['comanda_id'] . ' and status = 0 AND empresa_id = ' . getEmpresa() ;
             $db->rawQuery($SQL2);
 
             $result = $result[0]['comanda_id'];
@@ -894,6 +894,7 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
                     'cantidad' => $detalle->cantidad,
                     'precio' => $detalle->precio,
                     'session_id' => getDataFromToken('session_id'),
+                    'empresa_id' => getEmpresa(),
                     'usuario_id' => ($decoded->usuario_id == null) ? -2 : $decoded->usuario_id == null,
                 );
             } else {
@@ -905,6 +906,7 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
                     'cantidad' => $detalle->cantidad,
                     'precio' => $detalle->precio,
                     'session_id' => getDataFromToken('session_id'),
+                    'empresa_id' => getEmpresa(),
                     'usuario_id' => ($decoded->usuario_id == null) ? -2 : $decoded->usuario_id == null,
                 );
             }
@@ -997,7 +999,8 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
                 'producto_id' => $extra->producto_id,
                 'cantidad' => $extra->cantidad,
                 'comanda_detalle_id' => $extra->comanda_detalle_id,
-                'precio' => $extra->precio
+                'precio' => $extra->precio,
+                'empresa_id' => getEmpresa()
             );
 
             $results = $db->insert('comandas_extras', $data);
@@ -1051,6 +1054,7 @@ GROUP BY c.comanda_id,c.status,cd.comanda_detalle_id,cd.producto_id,p.nombre,cd.
             'total' => $decoded->total,
             'origen_id' => $decoded->origen_id,
             'envio_id' => -1,
+            'empresa_id' => getEmpresa()
         );
 
         $result = $db->update('comandas', $data);
